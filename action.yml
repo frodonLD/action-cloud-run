@@ -1,4 +1,4 @@
-name: 'Cloud Run'
+name: 'Cloud Run Deploy'
 description: 'Authenticate with gcloud, push image to GCR and deploy as a new revision to Cloud Run'
 author: 'Fréjus Gbaguidi <fh.gbaguidi@gmail.com>'
 branding:
