@@ -2,7 +2,7 @@
 
 set -e
 
-echo "$INPUT_SERVICE_KEY" | base64 --decode > "$HOME"/gcloud.json
+echo "$INPUT_KEY" | base64 --decode > "$HOME"/gcloud.json
 
 if [ "$INPUT_ENV" ]
 then
