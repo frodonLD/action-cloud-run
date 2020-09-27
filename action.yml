@@ -1,12 +1,18 @@
-name: 'Cloud Run'
+name: 'Cloud Run Deploy'
 description: 'Authenticate with gcloud, push image to GCR and deploy as a new revision to Cloud Run'
-author: 'David Stefan <stefda@gmail.com>'
+author: 'Fréjus Gbaguidi <fh.gbaguidi@gmail.com>'
 branding:
   icon: 'arrow-up-circle'
   color: 'green'
 inputs:
   image:
     description: 'Name of the docker image'
+    required: true
+  registry:
+    description: 'Registry of the docker image'
+    required: true
+  tag:
+    description: 'Tag of the docker image'
     required: true
   service:
     description: 'Name of the service in Cloud Run'
@@ -17,9 +23,13 @@ inputs:
   region:
     description: 'GCP region'
     required: true
-  service key:
+  key:
     description: 'GCP service key with storage and run permissions'
     required: true
+  envfile:
+    description: "File path to environment configuration"
+    required: false
+
 runs:
   using: 'docker'
   image: 'Dockerfile'

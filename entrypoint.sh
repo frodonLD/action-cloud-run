@@ -2,28 +2,35 @@
 
 set -e
 
-echo "$INPUT_SERVICE_KEY" | base64 --decode > "$HOME"/gcloud.json
+echo "${INPUT_KEY}" | base64 --decode > "$HOME"/gcloud.json
 
-if [ "$INPUT_ENV" ]
+if [ "${INPUT_ENVFILE}" ]
 then
-    ENVS=$(cat "$INPUT_ENV" | xargs | sed 's/ /,/g')
+  ENVS=$(cat "${INPUT_ENVFILE}" | xargs | sed 's/ /,/g')
 fi
 
-if [ "$ENVS" ]
+if [ "${ENVS}" ]
 then
-    ENV_FLAG="--set-env-vars $ENVS"
+    ENV_FLAG="--set-env-vars ${ENVS}"
 else
     ENV_FLAG="--clear-env-vars"
 fi
 
-gcloud auth activate-service-account --key-file="$HOME"/gcloud.json --project "$INPUT_PROJECT"
+ADDITIONAL_ARGS="${ENV_FLAG}"
+
+gcloud auth activate-service-account --key-file="$HOME"/gcloud.json --project "${INPUT_PROJECT}"
 gcloud auth configure-docker
 
-docker push "$INPUT_IMAGE"
+IMAGE="${INPUT_REGISTRY}/${INPUT_IMAGE}:${INPUT_TAG}"
 
-gcloud beta run deploy "$INPUT_SERVICE" \
-  --image "$INPUT_IMAGE" \
-  --region "$INPUT_REGION" \
+echo "Image name ==> ${IMAGE}"
+echo "Project ==> ${INPUT_PROJECT}"
+
+docker push "${IMAGE}"
+
+gcloud run deploy "${INPUT_SERVICE}" \
+  --image "${IMAGE}" \
+  --region "${INPUT_REGION}" \
   --platform managed \
   --allow-unauthenticated \
-  ${ENV_FLAG}
+  ${ADDITIONAL_ARGS}

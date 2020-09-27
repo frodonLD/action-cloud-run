@@ -7,16 +7,18 @@ An GitHub Action for deploying revisions to Google Cloud Run.
 In your actions workflow, somewhere after the step that builds
 `gcr.io/<your-project>/<image>`, insert this:
 
-```bash
+```yaml
 - name: Deploy service to Cloud Run
-  uses: stefda/action-cloud-run@v1.0
+  uses: frodonLD/action-cloud-run@master
   with:
-    image: gcr.io/[your-project]/[image]
+    image: [your-project]/[image]
+    registry: gcr.io
+    tag: latest
     service: [your-service]
     project: [your-project]
     region: [gcp-region]
     env: [path-to-env-file]
-    service key: ${{ secrets.GCLOUD_AUTH }}
+    key: ${{ secrets.GCLOUD_AUTH }}
 ```
 
 Your `GCLOUD_AUTH` secret (or whatever you name it) must be a base64 encoded
