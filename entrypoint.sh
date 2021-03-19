@@ -6,7 +6,8 @@ echo "${INPUT_KEY}" | base64 --decode > "$HOME"/gcloud.json
 
 if [ "${INPUT_ENVFILE}" ]
 then
-  ENVS=$(cat "${INPUT_ENVFILE}" | xargs | sed 's/ /,/g')
+  sed '/^#/ d' < ${INPUT_ENVFILE} > outputFile.txt
+  ENVS=$(cat "${INPUT_ENVFILE}" | xargs | sed 's/\n /,/g')
 fi
 
 if [ "${ENVS}" ]
