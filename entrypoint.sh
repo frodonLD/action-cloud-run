@@ -32,6 +32,8 @@ docker push "${IMAGE}"
 
 if [ "${INPUT_SERVICEYAMLFILE}" ]
 then
+  echo "cating ${INPUT_SERVICEYAMLFILE}}"
+  cat ${INPUT_SERVICEYAMLFILE}
   gcloud beta run services replace "${INPUT_SERVICEYAMLFILE}" \
     --region "${INPUT_REGION}" \
     --platform managed
