@@ -21,6 +21,22 @@ In your actions workflow, somewhere after the step that builds
     key: ${{ secrets.GCLOUD_AUTH }}
 ```
 
+OR 
+
+```yaml
+- name: Deploy service to Cloud Run
+  uses: frodonLD/action-cloud-run@master
+  with:
+    image: [your-project]/[image]
+    registry: gcr.io
+    tag: latest
+    service: [your-service]
+    project: [your-project]
+    region: [gcp-region]
+    serviceyamlfile: [path-to-service-yaml-config-file]
+    key: ${{ secrets.GCLOUD_AUTH }}
+```
+
 Your `GCLOUD_AUTH` secret (or whatever you name it) must be a base64 encoded
 gcloud service key with the following permissions:
 - Service Account User

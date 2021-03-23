@@ -30,9 +30,17 @@ echo "Project ==> ${INPUT_PROJECT}"
 
 docker push "${IMAGE}"
 
-gcloud run deploy "${INPUT_SERVICE}" \
-  --image "${IMAGE}" \
-  --region "${INPUT_REGION}" \
-  --platform managed \
-  --allow-unauthenticated \
-  ${ADDITIONAL_ARGS}
+if [ "${INPUT_SERVICEYAMLFILE}" ]
+then
+  gcloud beta run services replace "${INPUT_SERVICEYAMLFILE}" \
+    --region "${INPUT_REGION}" \
+    --platform managed
+
+else
+  gcloud run deploy "${INPUT_SERVICE}" \
+    --image "${IMAGE}" \
+    --region "${INPUT_REGION}" \
+    --platform managed \
+    --allow-unauthenticated \
+    ${ADDITIONAL_ARGS}
+fi

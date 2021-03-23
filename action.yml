@@ -29,6 +29,9 @@ inputs:
   envfile:
     description: "File path to environment configuration"
     required: false
+  serviceyamlfile:
+    description: "File path to GCP cloud run service yaml configuration"
+    required: false
 
 runs:
   using: 'docker'
