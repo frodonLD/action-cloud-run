@@ -25,10 +25,10 @@ gcloud auth configure-docker
 
 IMAGE="${INPUT_REGISTRY}/${INPUT_IMAGE}:${INPUT_TAG}"
 
-echo "Image name ==> ${IMAGE}"
-echo "Project ==> ${INPUT_PROJECT}"
-
-docker push "${IMAGE}"
+#echo "Image name ==> ${IMAGE}"
+#echo "Project ==> ${INPUT_PROJECT}"
+#
+#docker push "${IMAGE}"
 
 if [ "${INPUT_SERVICEYAMLFILE}" ]
 then
